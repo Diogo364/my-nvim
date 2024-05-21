@@ -1,5 +1,6 @@
 k# Compiled Lua sources
 luac.out
+.jukit
 
 # luarocks build files
 *.src.rock
