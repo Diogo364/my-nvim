@@ -18,24 +18,29 @@ return {
                     "--line-number",
                     "--column",
                     "--smart-case",
-                    "--hidden", -- add this 
+                    "--hidden",
+                    "--glob",
+                    "!**/.git/*"
                 }
-                -- your other options
             },
             pickers = {
                 find_files ={
-                    hidden = true
+                    find_command = {
+                        "fd",
+                        '--exclude="**/.git/*"',
+                        "--hidden"
+                    },
                 },
                 live_grep = {
-                    additional_args = function(opts)
-                        return {'--hidden'}
-                    end
+                    additional_args = {
+                            '--hidden',
+                        }
                 }
             }
         })
 
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<C-p>', builtin.find_files, {})
+        vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<leader>pws', function()
             local word = vim.fn.expand("<cword>")
             builtin.grep_string({ search = word })
