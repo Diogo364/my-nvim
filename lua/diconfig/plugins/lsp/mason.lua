@@ -20,12 +20,6 @@ return {
                     package_uninstalled = "✗",
                 },
             },
-            opts = {
-                ensure_installed = {
-                    "mypy",
-                    "ruff",
-                },
-            },
         })
         mason_lspconfig.setup({
             --list of servers for mason to install
@@ -53,7 +47,6 @@ return {
                 "flake8",
                 "isort",
                 "mypy",
-                "ruff",
                 "pylint",
                 "debugpy",
             },
