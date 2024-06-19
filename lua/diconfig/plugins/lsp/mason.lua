@@ -32,7 +32,6 @@ return {
                 "gopls",
                 "dockerls",
                 "docker_compose_language_service",
-                "ltex",
                 "markdown_oxide",
                 "yamlls",
             },
