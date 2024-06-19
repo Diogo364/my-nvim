@@ -6,6 +6,7 @@ return {
         { "antosha417/nvim-lsp-file-operations", config = true },
     },
     config = function()
+
         -- import lspconfig plugin
         local lspconfig = require("lspconfig")
 
@@ -57,6 +58,8 @@ return {
 
             opts.desc = "Restart LSP"
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+            keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
         end
         -- used to enable autocompletion (assign to every lsp server config)
         local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -100,19 +103,16 @@ return {
             }
         })
         lspconfig["lua_ls"].setup({
+            diagnosticon_attach = on_attach,
             capabilities = capabilities,
-            on_attach = on_attach,
-            settings = { -- custom settings for lua
+            settings = {
                 Lua = {
-                    diagnostic = {
-                        globasl = { "vim" },
+                    diagnostics = {
+                        globals = { 'vim' },
                     },
                     workspace = {
-                        -- make language server aware of runtime files
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.stdpath("config") .. "/lua"] = true,
-                        },
+                        library = vim.api.nvim_get_runtime_file('', true),
+                        checkThirdParty = false,
                     },
                 },
             },
@@ -121,10 +121,17 @@ return {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        local util = require("lspconfig/util")
+        local path = util.path
+
         lspconfig["pyright"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
-            filetypes = {"python"}
+            filetypes = {"python"},
+            before_init = function(_, config)
+                default_venv_path = path.join(vim.env.HOME, ".asdf", "shims", "python")
+                config.settings.python.pythonPath = default_venv_path
+            end,
         })
         lspconfig["rust_analyzer"].setup({
             capabilities = capabilities,
