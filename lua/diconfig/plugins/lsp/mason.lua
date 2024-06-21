@@ -24,16 +24,15 @@ return {
         mason_lspconfig.setup({
             --list of servers for mason to install
             ensure_installed = {
-                "lua_ls",
-                "rust_analyzer",
-                "pyright",
-                "jsonls",
                 "bashls",
-                "gopls",
-                "dockerls",
                 "docker_compose_language_service",
+                "dockerls",
+                "gopls",
+                "jsonls",
+                "lua_ls",
                 "markdown_oxide",
-                "yamlls",
+                "pyright",
+                "rust_analyzer",
             },
             -- auto-install configured servers (with lspconfig)
             automatic_installation = true, -- not the same as ensure_installed
@@ -45,7 +44,6 @@ return {
                 "black",
                 "flake8",
                 "isort",
-                "mypy",
                 "pylint",
                 "debugpy",
             },
