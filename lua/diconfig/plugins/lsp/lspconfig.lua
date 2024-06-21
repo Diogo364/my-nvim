@@ -59,7 +59,7 @@ return {
             opts.desc = "Restart LSP"
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 
-            keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+            keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, opts)
         end
         -- used to enable autocompletion (assign to every lsp server config)
         local capabilities = cmp_nvim_lsp.default_capabilities()
