@@ -41,17 +41,17 @@ return {
             opts.desc = "Smart rename"
             keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
 
-            opts.desc = "Show buffer diagnostics"
-            keymap.set("n", "<leader>D",  "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show diagnostics for file
+            opts.desc = "Show buffer diagnostic"
+            keymap.set("n", "<leader>D",  "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show diagnostic for file
 
-            opts.desc = "Show line diagnostics"
-            keymap.set("n", "<leader>d", vim.diagnostics.open_float, opts) -- show diagnostics for line
+            opts.desc = "Show line diagnostic"
+            keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostic for line
 
             opts.desc = "Go to previous diagnostic"
-            keymap.set("n", "[d", vim.diagnostics.goto_prev, opts) -- jump to previous diagnostic in buffer
+            keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
 
             opts.desc = "Go to next diagnostic"
-            keymap.set("n", "]d", vim.diagnostics.goto_next, opts) -- jump to next diagnostic in buffer
+            keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
 
             opts.desc = "Show documentation for what is under cursor"
             keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
@@ -77,24 +77,30 @@ return {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+
         lspconfig["docker_compose_language_service"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
+            filetypes = {
+                "yaml.docker-compose", "yaml"
+            }
         })
+
         lspconfig["dockerls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
+
         lspconfig["gopls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
+
         lspconfig["jsonls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
+
         lspconfig["lua_ls"].setup({
-            diagnosticon_attach = on_attach,
+            on_attach = on_attach,
             capabilities = capabilities,
             settings = {
                 Lua = {
@@ -108,27 +114,19 @@ return {
                 },
             },
         })
+
         lspconfig["markdown_oxide"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
-        local util = require("lspconfig/util")
-        local path = util.path
 
         lspconfig["pyright"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
             filetypes = {"python"},
-            before_init = function(_, config)
-                default_venv_path = path.join(vim.env.HOME, ".asdf", "shims", "python")
-                config.settings.python.pythonPath = default_venv_path
-            end,
         })
+
         lspconfig["rust_analyzer"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-        lspconfig["yamlls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
