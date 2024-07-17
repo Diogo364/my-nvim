@@ -38,3 +38,21 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+
+-- Select entire content of the file
+vim.keymap.set("n", "<leader><leader>a", "gg<S-v>G")
+
+-- Simple exit from terminal mode
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+-- Resize splits
+vim.keymap.set("n", "<M-=>", "<C-W>=")
+-- Vertical
+vim.keymap.set("n", "<M-+>", "<C-W>2+")
+vim.keymap.set("n", "<M-->", "<C-W>2-")
+-- Horizontal
+vim.keymap.set("n", "<M->>", "<C-W>5>")
+vim.keymap.set("n", "<M-<>", "<C-W>5<")
+
+-- Source config
+vim.keymap.set("n", "<leader><leader>x", ":source %<CR>")
