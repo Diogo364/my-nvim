@@ -1,9 +1,18 @@
+-- Jukit Global Config
+vim.g.jukit_mappings = 0
+vim.g.jukit_layout = {
+	p1 = 0.65,
+	split = "vertical",
+	val = {
+		"file_content",
+		{
+			split = "horizontal",
+			p1 = 0.6,
+			val = { "output", "output_history" },
+		},
+	},
+}
+
 return {
-    "luk400/vim-jukit",
-    ft = { "python" },
-    config = function()
-        vim.keymap.set("n", "<leader><cr>", ":call jukit#send#section(0)<cr>")
-        vim.keymap.set("n", "<Nop>", ":call jukit#send#line()<cr>")
-        vim.keymap.set("n", "<Nop>", ":call jukit#splits#out_hist_scroll(0)<cr>")
-    end
+	"luk400/vim-jukit",
 }
