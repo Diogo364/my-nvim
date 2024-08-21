@@ -6,7 +6,6 @@ return {
         { "antosha417/nvim-lsp-file-operations", config = true },
     },
     config = function()
-
         -- import lspconfig plugin
         local lspconfig = require("lspconfig")
 
@@ -42,7 +41,7 @@ return {
             keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
 
             opts.desc = "Show buffer diagnostic"
-            keymap.set("n", "<leader>D",  "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show diagnostic for file
+            keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show diagnostic for file
 
             opts.desc = "Show line diagnostic"
             keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostic for line
@@ -59,7 +58,7 @@ return {
             opts.desc = "Restart LSP"
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 
-            keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, opts)
+            keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts)
         end
         -- used to enable autocompletion (assign to every lsp server config)
         local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -80,8 +79,9 @@ return {
 
         lspconfig["docker_compose_language_service"].setup({
             filetypes = {
-                "yaml.docker-compose", "yaml"
-            }
+                "yaml.docker-compose",
+                "yaml",
+            },
         })
 
         lspconfig["dockerls"].setup({
@@ -105,10 +105,10 @@ return {
             settings = {
                 Lua = {
                     diagnostics = {
-                        globals = { 'vim' },
+                        globals = { "vim" },
                     },
                     workspace = {
-                        library = vim.api.nvim_get_runtime_file('', true),
+                        library = vim.api.nvim_get_runtime_file("", true),
                         checkThirdParty = false,
                     },
                 },
@@ -123,10 +123,30 @@ return {
         lspconfig["pyright"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
-            filetypes = {"python"},
+            filetypes = { "python" },
         })
 
         lspconfig["rust_analyzer"].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+
+        lspconfig["tsserver"].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            init_ooptions = {
+                preference = {
+                    disableSuggestions = true,
+                },
+            },
+        })
+
+        lspconfig["html"].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+
+        lspconfig["cssls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
