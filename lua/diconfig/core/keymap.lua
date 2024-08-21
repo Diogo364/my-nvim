@@ -63,3 +63,15 @@ vim.keymap.set("n", "<M-<>", "<C-W>5<")
 
 -- Source config
 vim.keymap.set("n", "<leader><leader>x", ":source %<CR>")
+
+vim.keymap.set("n", "<leader>sh", ":split<CR>")
+vim.keymap.set("n", "<leader>sv", ":vs<CR>")
+
+-- Create terminal split at bottom of screen
+vim.keymap.set("n", "<M-t>", ":bot :term<CR>")
+
+-- Moving splits with motions
+vim.keymap.set("n", "<leader>msh", "<C-w>H")
+vim.keymap.set("n", "<leader>msj", "<C-w>J")
+vim.keymap.set("n", "<leader>msk", "<C-w>K")
+vim.keymap.set("n", "<leader>msl", "<C-w>L")
