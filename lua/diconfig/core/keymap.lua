@@ -40,8 +40,14 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
+-- Create mark before major movements
+vim.keymap.set("n", "gg", "m0gg")
+vim.keymap.set("n", "G", "m0G")
+vim.keymap.set("n", "<C-U>", "m0<C-U>")
+vim.keymap.set("n", "<C-D>", "m0<C-D>")
+
 -- Select entire content of the file
-vim.keymap.set("n", "<leader><leader>a", "gg<S-v>G")
+vim.keymap.set("n", "<leader><leader>a", "m0gg<S-v>G")
 
 -- Simple exit from terminal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
