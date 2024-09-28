@@ -114,6 +114,7 @@ return {
                 ["gx"] = "actions.open_external",
                 ["g."] = "actions.toggle_hidden",
                 ["g\\"] = "actions.toggle_trash",
+                ["gy"] = "actions.yank_entry",
             },
             -- Set to false to disable all of the above keymaps
             use_default_keymaps = true,

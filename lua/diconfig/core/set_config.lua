@@ -1,5 +1,11 @@
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+vim.g.netrw_list_hide = [[.git,.jukit]]
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.opt.numberwidth = 3
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -21,7 +27,22 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+vim.opt.cmdheight = 2
+vim.opt.conceallevel = 0
+vim.opt.pumheight = 10
+vim.opt.showmode = false
+vim.opt.showtabline = 1
+
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+vim.opt.iskeyword:append("-")
