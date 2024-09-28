@@ -5,9 +5,20 @@ return {
         require("nvim-treesitter.configs").setup({
             -- A list of parser names, or "all"
             ensure_installed = {
-                "vimdoc", "javascript", "typescript", "c", "lua", "rust",
-                "jsdoc", "bash", "python", "dockerfile", "regex"
+                "vimdoc",
+                "c",
+                "lua",
+                "rust",
+                "jsdoc",
+                "bash",
+                "python",
+                "dockerfile",
+                "regex",
+                "markdown",
+                "markdown_inline",
             },
+
+            ignore_install = {},
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
@@ -17,7 +28,7 @@ return {
             auto_install = true,
 
             indent = {
-                enable = true
+                enable = true,
             },
 
             highlight = {
@@ -29,6 +40,10 @@ return {
                 -- Using this option may slow down your editor, and you may see some duplicate highlights.
                 -- Instead of true it can also be a list of languages
                 additional_vim_regex_highlighting = { "markdown" },
+
+                disable = {
+                    "csv",
+                },
             },
         })
 
@@ -36,11 +51,11 @@ return {
         treesitter_parser_config.templ = {
             install_info = {
                 url = "https://github.com/vrischmann/tree-sitter-templ.git",
-                files = {"src/parser.c", "src/scanner.c"},
+                files = { "src/parser.c", "src/scanner.c" },
                 branch = "master",
             },
         }
 
         vim.treesitter.language.register("templ", "templ")
-    end
+    end,
 }
