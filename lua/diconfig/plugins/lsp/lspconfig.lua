@@ -1,154 +1,183 @@
 return {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-        { "antosha417/nvim-lsp-file-operations", config = true },
-    },
-    config = function()
-        -- import lspconfig plugin
-        local lspconfig = require("lspconfig")
+	"neovim/nvim-lspconfig",
+	event = { "BufReadPre", "BufNewFile" },
+	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
+		{ "antosha417/nvim-lsp-file-operations", config = true },
+		{ "nvim-telescope/telescope.nvim" },
+	},
+	config = function()
+		-- import lspconfig plugin
+		local lspconfig = require("lspconfig")
 
-        -- import cmp-nvim-lsp plugin
-        local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		-- import cmp-nvim-lsp plugin
+		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-        local keymap = vim.keymap -- for conciseness
+		local on_attach = function(client, bufnr)
+			vim.keymap.set(
+				"n",
+				"gR",
+				"<cmd>Telescope lsp_references<CR>",
+				{ desc = "Show LSP references", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"gD",
+				vim.lsp.buf.declaration,
+				{ desc = "Go to declaration", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"gd",
+				"<cmd>Telescope lsp_definitions<CR>",
+				{ desc = "Show LSP definition", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"gi",
+				"<cmd>Telescope lsp_implementations<CR>",
+				{ desc = "Show LSP implementation", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"gt",
+				"<cmd>Telescope lsp_type_definitions<CR>",
+				{ desc = "Show LSP type definitions", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				{ "n", "v" },
+				"<leader>ca",
+				vim.lsp.buf.code_action,
+				{ desc = "See available code actions", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>rn",
+				vim.lsp.buf.rename,
+				{ desc = "Smart rename", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>pd",
+				"<cmd>Telescope diagnostics bufnr=0<CR>",
+				{ desc = "Show buffer diagnostic", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>D",
+				vim.diagnostic.open_float,
+				{ desc = "Show line diagnostic", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"[d",
+				vim.diagnostic.goto_prev,
+				{ desc = "Go to previous diagnostic", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"]d",
+				vim.diagnostic.goto_next,
+				{ desc = "Go to next diagnostic", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"K",
+				vim.lsp.buf.hover,
+				{ desc = "Show documentation for what is under cursor", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>rs",
+				":LspRestart<CR>",
+				{ desc = "Restart LSP", buffer = bufnr, noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>k",
+				vim.lsp.buf.signature_help,
+				{ desc = "Signature Help", buffer = bufnr, noremap = true, silent = true }
+			)
+		end
+		-- used to enable autocompletion (assign to every lsp server config)
+		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-        local opts = { noremap = true, silent = true }
-        local on_attach = function(client, bufnr)
-            opts.buffer = bufnr
+		-- Change the Diagnostic symbols in the sign column (gutter)
+		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+		for type, icon in pairs(signs) do
+			local hl = "DiagnosticSign" .. type
+			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+		end
 
-            -- set keybindings
-            opts.desc = "Show LSP references"
-            keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+		-- configure html server
 
-            opts.desc = "Go to declaration"
-            keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+		lspconfig["bashls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
-            opts.desc = "Show LSP definition"
-            keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+		lspconfig["docker_compose_language_service"].setup({
+			filetypes = {
+				"yaml.docker-compose",
+				"yaml",
+			},
+		})
 
-            opts.desc = "Show LSP implementation"
-            keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+		lspconfig["dockerls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
-            opts.desc = "Show LSP type definitions"
-            keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+		lspconfig["gopls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
-            opts.desc = "See available code actions"
-            keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply
+		lspconfig["jsonls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
-            opts.desc = "Smart rename"
-            keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+		lspconfig["lua_ls"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+					workspace = {
+						library = vim.api.nvim_get_runtime_file("", true),
+						checkThirdParty = false,
+					},
+				},
+			},
+		})
 
-            opts.desc = "Show buffer diagnostic"
-            keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show diagnostic for file
+		lspconfig["markdown_oxide"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
-            opts.desc = "Show line diagnostic"
-            keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostic for line
+		lspconfig["pyright"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetypes = { "python" },
+		})
 
-            opts.desc = "Go to previous diagnostic"
-            keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+		lspconfig["rust_analyzer"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
-            opts.desc = "Go to next diagnostic"
-            keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+		lspconfig["html"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
-            opts.desc = "Show documentation for what is under cursor"
-            keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
-            opts.desc = "Restart LSP"
-            keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-
-            keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts)
-        end
-        -- used to enable autocompletion (assign to every lsp server config)
-        local capabilities = cmp_nvim_lsp.default_capabilities()
-
-        -- Change the Diagnostic symbols in the sign column (gutter)
-        local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-        for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-        end
-
-        -- configure html server
-
-        lspconfig["bashls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["docker_compose_language_service"].setup({
-            filetypes = {
-                "yaml.docker-compose",
-                "yaml",
-            },
-        })
-
-        lspconfig["dockerls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["gopls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["jsonls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["lua_ls"].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim" },
-                    },
-                    workspace = {
-                        library = vim.api.nvim_get_runtime_file("", true),
-                        checkThirdParty = false,
-                    },
-                },
-            },
-        })
-
-        lspconfig["markdown_oxide"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["pyright"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = { "python" },
-        })
-
-        lspconfig["rust_analyzer"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["tsserver"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            init_ooptions = {
-                preference = {
-                    disableSuggestions = true,
-                },
-            },
-        })
-
-        lspconfig["html"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["cssls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-    end,
+		lspconfig["cssls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+	end,
 }
