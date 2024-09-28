@@ -62,6 +62,21 @@ function close_matched_buffers(opts)
     end
 end
 
+-- Execute Lua line
+function RunLuaLine()
+    local vstart = vim.fn.getpos("'<")
+    local vend = vim.fn.getpos("'>")
+
+    local line_start = vstart[2]
+    local line_end = vend[2]
+
+    local cmd = vim.api.nvim_buf_get_lines(0, line_start - 1, line_end, false)
+    if cmd == nil then
+        return nil
+    end
+    return load(table.concat(cmd, "\n"))()
+end
+
 -- Autocmds
 
 -- Close empty_unnamed_buffer when openning new buffer
