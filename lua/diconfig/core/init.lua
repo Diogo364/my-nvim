@@ -1,4 +1,5 @@
-require("diconfig.core.keymap")
 require("diconfig.core.set_config")
 require("diconfig.core.custom_functions")
 require("diconfig.core.custom_variables")
+require("diconfig.core.keymap")
+require("diconfig.core.file_management")
