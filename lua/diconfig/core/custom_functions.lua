@@ -6,6 +6,14 @@ P = function(table_object)
     return table_object
 end
 
+if pcall(require, "plenary") then
+    RELOAD = require("plenary.reload").reload_module
+    R = function(module)
+        RELOAD(module)
+        return require(module)
+    end
+end
+
 -- Autocmds
 
 -- Enters in provided path on Neovim Openning
