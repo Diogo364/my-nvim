@@ -14,7 +14,7 @@ M.focus_preview = function(prompt_bufnr)
 
     vim.keymap.set("n", "<Tab>", function()
         vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", prompt_win))
-    end, { buffer = bufnr })
+    end, { buffer = bufnr, desc = "Switch to prompt window" })
 
     vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", winid))
     -- api.nvim_set_current_win(winid)

@@ -11,6 +11,6 @@ return {
 			degub = true,
 		})
 
-		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Format code using LSP" })
 	end,
 }

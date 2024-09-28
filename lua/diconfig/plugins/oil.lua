@@ -221,6 +221,6 @@ return {
                 border = "rounded",
             },
         })
-        vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>")
+        vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open Oil" })
     end,
 }
