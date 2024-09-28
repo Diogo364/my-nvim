@@ -1,21 +1,35 @@
+local detail = false
+
+local simple_view = { "icon" }
+local detailed_view = { "icon", "permissions", "size", "mtime" }
+
+-- Declare a global function to retrieve the current directory
+function _G.get_oil_winbar()
+    local dir = require("oil").get_current_dir()
+    if dir then
+        return vim.fn.fnamemodify(dir, ":~")
+    else
+        -- If there is no current directory (e.g. over ssh), just show the buffer name
+        return vim.api.nvim_buf_get_name(0)
+    end
+end
+
 return {
     "stevearc/oil.nvim",
     opts = {},
     -- Optional dependencies
     -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    event = "VeryLazy",
     config = function()
         require("oil").setup({
             -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
             -- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.
-            default_file_explorer = false,
+            default_file_explorer = true,
             -- Id is automatically added at the beginning, and name at the end
             -- See :help oil-columns
             columns = {
                 "icon",
-                "permissions",
-                "size",
-                "mtime",
             },
             -- Buffer-local options to use for oil buffers
             buf_options = {
@@ -32,7 +46,9 @@ return {
                 list = false,
                 conceallevel = 3,
                 concealcursor = "nvic",
+                winbar = "%!v:lua.get_oil_winbar()",
             },
+
             -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
             delete_to_trash = true,
             -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
@@ -64,13 +80,24 @@ return {
             -- See :help oil-actions for a list of all available actions
             keymaps = {
                 ["g?"] = "actions.show_help",
+                ["gd"] = {
+                    desc = "Toggle file detail view",
+                    callback = function()
+                        detail = not detail
+                        if detail then
+                            require("oil").set_columns(detailed_view)
+                        else
+                            require("oil").set_columns(simple_view)
+                        end
+                    end,
+                },
                 ["<CR>"] = "actions.select",
-                ["<C-s>"] = {
+                ["<C-v>"] = {
                     "actions.select",
                     opts = { vertical = true },
                     desc = "Open the entry in a vertical split",
                 },
-                ["<C-h>"] = {
+                ["<C-x>"] = {
                     "actions.select",
                     opts = { horizontal = true },
                     desc = "Open the entry in a horizontal split",
@@ -92,7 +119,7 @@ return {
             use_default_keymaps = true,
             view_options = {
                 -- Show files and directories that start with "."
-                show_hidden = false,
+                show_hidden = true,
                 -- This function defines what is considered a "hidden" file
                 is_hidden_file = function(name, bufnr)
                     return vim.startswith(name, ".")
@@ -194,6 +221,6 @@ return {
                 border = "rounded",
             },
         })
-        vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+        vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>")
     end,
 }
