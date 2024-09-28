@@ -33,7 +33,6 @@ return {
                 "markdown_oxide",
                 "pyright",
                 "rust_analyzer",
-                "tsserver",
                 "html",
                 "cssls",
             },
