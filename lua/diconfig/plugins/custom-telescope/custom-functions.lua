@@ -1,11 +1,11 @@
 local previewers = require("telescope.previewers")
+local action_state = require "telescope.actions.state"
 local Job = require("plenary.job")
 
 M = {}
 
 ---@diagnostic disable-next-line: duplicate-set-field
 M.focus_preview = function(prompt_bufnr)
-    local action_state = require("telescope.actions.state")
     local picker = action_state.get_current_picker(prompt_bufnr)
     local prompt_win = picker.prompt_win
     local previewer = picker.previewer
@@ -67,6 +67,48 @@ M.buffer_previewer_maker = function(filepath, bufnr, opts)
                 end)
             end
         end,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }):sync()
 end
 
