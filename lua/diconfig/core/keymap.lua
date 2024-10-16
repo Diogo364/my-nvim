@@ -15,18 +15,20 @@ vim.keymap.set({ "n", "v" }, "<c-u>", "<c-u>zz", { desc = "scroll up and center"
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 
-vim.keymap.set("n", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
-vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank selected to system clipboard" })
-vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to system clipboard" })
+vim.keymap.set("n", "<leader>y", '"+y', { desc = "Yank to system clipboard", noremap = true })
+vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank selected to system clipboard", noremap = true })
+vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to system clipboard", noremap = true })
 
 vim.keymap.set("n", "<leader>%", ':let @+ = expand("%:.")<cr>', { desc = "Copy relative file path" })
 vim.keymap.set("n", "<leader><leader>%", ':let @+ = expand("%:p")<cr>', { desc = "Copy absolute file path" })
 
-vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Paste without overwriting register" })
-vim.keymap.set("v", "<leader>c", '"_di', { desc = "Delete without yanking and enter insert mode" })
-vim.keymap.set("n", "<leader>cc", '"_ddO', { desc = "Delete without yanking and enter insert mode" })
-vim.keymap.set("n", "<leader>d", '"_d', { desc = "Delete without yanking" })
-vim.keymap.set("v", "<leader>d", '"_d', { desc = "Delete selection without yanking" })
+
+vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Paste without overwriting register", noremap = true })
+vim.keymap.set("v", "<leader>c", '"_di', { desc = "Delete without yanking and enter insert mode", noremap = true })
+vim.keymap.set("n", "<leader>cc", '"_ddO', { desc = "Delete without yanking and enter insert mode", noremap = true })
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking", noremap = true })
+
+vim.keymap.set("n", "<Del>", "<CMD>w<CR>", { desc = "Map enter to save" })
 
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })
 
@@ -34,24 +36,20 @@ vim.keymap.set("n", "Q", "<cmd>silent !tmux neww qconf nvim<CR>", { desc = "Open
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "Open tmux sessionizer" })
 
-vim.keymap.set("n", "<leader>f", function()
-    vim.lsp.buf.format()
-end, { desc = "Format current buffer with LSP" })
-
 vim.keymap.set(
     "n",
-    "<leader>s",
+    "<leader>w",
     ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
     { desc = "Replace word under cursor" }
 )
-vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
-vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
+vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect", noremap = true })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect", noremap = true })
 
 -- Create mark before major movements
-vim.keymap.set("n", "gg", "m0gg", { desc = "Mark and go to top of file" })
-vim.keymap.set("n", "G", "m0G", { desc = "Mark and go to bottom of file" })
-vim.keymap.set("n", "<C-U>", "m0<C-U>", { desc = "Mark and scroll up half-page" })
-vim.keymap.set("n", "<C-D>", "m0<C-D>", { desc = "Mark and scroll down half-page" })
+vim.keymap.set("n", "gg", "m0gg", { desc = "Mark and go to top of file", noremap = true })
+vim.keymap.set("n", "G", "m0G", { desc = "Mark and go to bottom of file", noremap = true })
+vim.keymap.set("n", "<C-U>", "m0<C-U>", { desc = "Mark and scroll up half-page", noremap = true })
+vim.keymap.set("n", "<C-D>", "m0<C-D>", { desc = "Mark and scroll down half-page", noremap = true })
 
 -- Select entire content of the file
 vim.keymap.set("n", "<leader><leader>a", "m0gg<S-v>G", { desc = "Select all content of the file" })
@@ -70,21 +68,19 @@ vim.keymap.set("n", "<M->>", "<C-W>5>", { desc = "Increase split width" })
 vim.keymap.set("n", "<M-<>", "<C-W>5<", { desc = "Decrease split width" })
 
 -- Source config
-vim.keymap.set("n", "<leader>x", ":w<CR> :source %<CR>", { desc = "Save and source file" })
-vim.keymap.set("v", "<leader>x", RunLuaLine, { desc = "Run Lua code" })
-
-vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
-vim.keymap.set("n", "<leader>sv", ":vs<CR>", { desc = "Vertical split" })
+vim.keymap.set("v", "<leader>x", function()
+    RunLuaLine()
+end, { desc = "Run Lua code" })
 
 -- Create terminal split at bottom of screen
 vim.keymap.set("n", "<M-t>", ":bot :term<CR>", { desc = "Open terminal at bottom" })
-vim.keymap.set("n", "<M-v>", " :term<CR>", { desc = "Open terminal in vertical split" })
+vim.keymap.set("n", "<M-v>", ":vert :term<CR>", { desc = "Open terminal in vertical split" })
+
+vim.keymap.set("n", "<leader>wh", ":split<CR>", { desc = "Horizontal split" })
+vim.keymap.set("n", "<leader>wv", ":vs<CR>", { desc = "Vertical split" })
 
 -- Moving splits with motions
-vim.keymap.set("n", "<leader>msh", "<C-w>H", { desc = "Move split left" })
-vim.keymap.set("n", "<leader>msj", "<C-w>J", { desc = "Move split down" })
-vim.keymap.set("n", "<leader>msk", "<C-w>K", { desc = "Move split up" })
-vim.keymap.set("n", "<leader>msl", "<C-w>L", { desc = "Move split right" })
-
-vim.keymap.set({ "n", "v" }, "/", "/\\v", { noremap = true, desc = "Enable very magic search" })
-vim.keymap.set({ "n", "v" }, "?", "?\\v", { noremap = true, desc = "Enable very magic reverse search" })
+vim.keymap.set("n", "<leader>wmh", "<C-w>H", { desc = "Move split left" })
+vim.keymap.set("n", "<leader>wmj", "<C-w>J", { desc = "Move split down" })
+vim.keymap.set("n", "<leader>wmk", "<C-w>K", { desc = "Move split up" })
+vim.keymap.set("n", "<leader>wml", "<C-w>L", { desc = "Move split right" })

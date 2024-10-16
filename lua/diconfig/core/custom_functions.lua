@@ -6,9 +6,24 @@ P = function(table_object)
     return table_object
 end
 
+---@param content table<string, boolean>
+---@param opts? table
+---@param bufnr? integer
+SendToNewScratchBuffer = function(content, opts, bufnr)
+    bufnr = bufnr or vim.api.nvim_create_buf(false, true)
+    opts = opts or {}
+
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, content)
+    for opt, val in pairs(opts) do
+        vim.api.nvim_set_option_value(opt, val, { buf = bufnr })
+    end
+    return bufnr
+end
+
 if pcall(require, "plenary") then
     RELOAD = require("plenary.reload").reload_module
     R = function(module)
+        print("Reloading module ", module)
         RELOAD(module)
         return require(module)
     end
@@ -62,20 +77,11 @@ function close_matched_buffers(opts)
     end
 end
 
--- Execute Lua line
-function RunLuaLine()
-    local vstart = vim.fn.getpos("'<")
-    local vend = vim.fn.getpos("'>")
-
-    local line_start = vstart[2]
-    local line_end = vend[2]
-
-    local cmd = vim.api.nvim_buf_get_lines(0, line_start - 1, line_end, false)
-    if cmd == nil then
-        return nil
-    end
-    return load(table.concat(cmd, "\n"))()
-end
+-- Commands
+vim.api.nvim_create_user_command("TSPlayground", function()
+    vim.cmd("InspectTree")
+    vim.cmd("EditQuery")
+end, { desc = "Open Treesitter query layout" })
 
 -- Autocmds
 
@@ -107,9 +113,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 -- Opens Alpha instead of unnamed buffer
 local group_empty_buffer_alpha = vim.api.nvim_create_augroup("group_alpha_empty_unnamed_buffer", { clear = true })
-
-StartupFlag = true
-
 vim.api.nvim_create_autocmd("VimEnter", {
     group = group_empty_buffer_alpha,
     pattern = "",
@@ -119,4 +122,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
             vim.cmd("Alpha")
         end
     end,
+})
+
+local group_term_bufr = vim.api.nvim_create_augroup("group_term_bufr", { clear = true })
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "*",
+    callback = function()
+        vim.api.nvim_set_option_value("buflisted", false, { buf = 0 })
+    end,
+    group = group_term_bufr,
 })
