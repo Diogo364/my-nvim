@@ -63,30 +63,9 @@ vim.keymap.set(
 
 vim.keymap.set(
 	"n",
-	"<leader>so",
-	":call jukit#splits#show_last_cell_output(1)<cr>",
-	{ buffer = true, desc = "Show output of current cell in output-history window" }
-)
-
-vim.keymap.set(
-	"n",
-	"<leader>j",
-	":call jukit#splits#out_hist_scroll(1)<cr>",
-	{ buffer = true, desc = "Scroll down in output-history window" }
-)
-
-vim.keymap.set(
-	"n",
 	"<leader>ah",
 	":call jukit#splits#toggle_auto_hist()<cr>",
 	{ buffer = true, desc = "Toggle auto output display on CursorHold" }
-)
-
-vim.keymap.set(
-	"n",
-	"<leader>sl",
-	":call jukit#layouts#set_layout()<cr>",
-	{ buffer = true, desc = "Apply layout to current splits" }
 )
 
 vim.keymap.set(
@@ -117,20 +96,6 @@ vim.keymap.set(
 	"<leader>cO",
 	":call jukit#cells#create_above(0)<cr>",
 	{ buffer = true, desc = "Create new code cell above" }
-)
-
-vim.keymap.set(
-	"n",
-	"<leader>ct",
-	":call jukit#cells#create_below(1)<cr>",
-	{ buffer = true, desc = "Create new markdown cell below" }
-)
-
-vim.keymap.set(
-	"n",
-	"<leader>cT",
-	":call jukit#cells#create_above(1)<cr>",
-	{ buffer = true, desc = "Create new markdown cell above" }
 )
 
 vim.keymap.set("n", "<leader>cd", ":call jukit#cells#delete()<cr>", { buffer = true, desc = "Delete current cell" })
@@ -188,37 +153,3 @@ vim.keymap.set(
 	{ buffer = true, desc = "Delete saved outputs of all cells" }
 )
 
-vim.keymap.set(
-	"n",
-	"<leader>np",
-	":call jukit#convert#notebook_convert('jupyter-notebook')<cr>",
-	{ buffer = true, desc = "Convert ipynb to py or vice versa" }
-)
-
-vim.keymap.set(
-	"n",
-	"<leader>ht",
-	":call jukit#convert#save_nb_to_file(0,1,'html')<cr>",
-	{ buffer = true, desc = "Convert file to HTML and open" }
-)
-
-vim.keymap.set(
-	"n",
-	"<leader>rht",
-	":call jukit#convert#save_nb_to_file(1,1,'html')<cr>",
-	{ buffer = true, desc = "Convert file to HTML, rerun all cells, and open" }
-)
-
-vim.keymap.set(
-	"n",
-	"<leader>pd",
-	":call jukit#convert#save_nb_to_file(0,1,'pdf')<cr>",
-	{ buffer = true, desc = "Convert file to PDF and open" }
-)
-
-vim.keymap.set(
-	"n",
-	"<leader>rpd",
-	":call jukit#convert#save_nb_to_file(1,1,'pdf')<cr>",
-	{ buffer = true, desc = "Convert file to PDF, rerun all cells, and open" }
-)
