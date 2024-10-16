@@ -1,7 +1,7 @@
 AlwaysHidePattern = {
-    ".jukit/",
-    ".venv/",
-    ".git/",
+    ".jukit",
+    ".venv",
+    ".git",
     "__pycache__",
 }
 
