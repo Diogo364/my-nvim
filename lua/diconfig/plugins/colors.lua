@@ -41,4 +41,20 @@ return {
         lazy = false,
         priority = 1000,
     },
+    {
+        "bluz71/vim-moonfly-colors",
+        name = "moonfly",
+        lazy = false,
+        priority = 1000,
+    },
+    {
+        "aliqyan-21/darkvoid.nvim",
+        name = "darkvoid",
+        lazy = false,
+        priority = 1000,
+        opts = {
+            glow = true,
+            show_end_of_buffer = true,
+        },
+    },
 }
