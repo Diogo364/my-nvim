@@ -5,10 +5,11 @@ return {
 	tag = "0.3.0",
 	config = function()
 		local ColorMyPencils = function()
-			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-			vim.api.nvim_set_hl(0, "NonText", { bg = "none" })
-			vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
-			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+			-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+			-- vim.api.nvim_set_hl(0, "NonText", { bg = "none" })
+			-- vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+			-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+            vim.api.nvim_set_hl(0, "PmenuSel", { bg = "Yellow", fg = "Black" })
 		end
 
 		require("colorscheme-manager").setup({
