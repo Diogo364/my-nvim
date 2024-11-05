@@ -1,7 +1,7 @@
 return {
-    'echasnovski/mini.nvim',
+    "echasnovski/mini.nvim",
     version = false,
-    config = function ()
+    config = function()
         require("diconfig.plugins.mini-extensions.setup")
-    end
+    end,
 }

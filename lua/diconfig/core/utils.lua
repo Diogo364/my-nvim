@@ -5,22 +5,43 @@ function SwitchCase()
     local col = pos[2]
 
     local word = vim.fn.expand("<cword>")
-    local word_start = vim.fn.matchstrpos(vim.fn.getline('.'), '\\k*\\%' .. (col+1) .. 'c\\k*')[2]
+    local word_start = vim.fn.matchstrpos(
+        vim.fn.getline("."),
+        "\\k*\\%" .. (col + 1) .. "c\\k*"
+    )[2]
 
     -- Detect camelCase
-    if word:find('[a-z][A-Z]') then
+    if word:find("[a-z][A-Z]") then
         -- Convert camelCase to snake_case
-        local snake_case_word = word:gsub('([a-z])([A-Z])', '%1_%2'):lower()
-        snake_case_word = snake_case_word:gsub('^([a-z])', '%1'):lower()
+        local snake_case_word = word:gsub("([a-z])([A-Z])", "%1_%2"):lower()
+        snake_case_word = snake_case_word:gsub("^([a-z])", "%1"):lower()
 
-        vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, {snake_case_word})
+        vim.api.nvim_buf_set_text(
+            0,
+            line - 1,
+            word_start,
+            line - 1,
+            word_start + #word,
+            { snake_case_word }
+        )
     -- Detect snake_case
-    elseif word:find('_[a-z]') then
+    elseif word:find("_[a-z]") then
         -- Convert snake_case to PascalCase
-        local pascal_case_word = word:gsub('(_)([a-z])', function(_, l) return l:upper() end)
-        pascal_case_word = pascal_case_word:gsub('^([a-z])', function(l) return l:upper() end)
+        local pascal_case_word = word:gsub("(_)([a-z])", function(_, l)
+            return l:upper()
+        end)
+        pascal_case_word = pascal_case_word:gsub("^([a-z])", function(l)
+            return l:upper()
+        end)
 
-        vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, {pascal_case_word})
+        vim.api.nvim_buf_set_text(
+            0,
+            line - 1,
+            word_start,
+            line - 1,
+            word_start + #word,
+            { pascal_case_word }
+        )
     else
         print("Not a snake_case or PascalCase word")
     end
@@ -126,9 +147,17 @@ function DownloadDevcontainerTemplate()
     )
 end
 
-vim.api.nvim_create_user_command("DownloadFile", function(args)
-    DownloadFile(args.fargs[1], args.fargs[2])
-end, { nargs = "*", complete = "file", desc = "Download my custom devcontainer template from GH" })
+vim.api.nvim_create_user_command(
+    "DownloadFile",
+    function(args)
+        DownloadFile(args.fargs[1], args.fargs[2])
+    end,
+    {
+        nargs = "*",
+        complete = "file",
+        desc = "Download my custom devcontainer template from GH",
+    }
+)
 
 vim.api.nvim_create_user_command(
     "DownloadDevcontainerTemplate",

@@ -2,10 +2,10 @@ return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-        "hrsh7th/cmp-buffer",     -- source for text in buffer
-        "hrsh7th/cmp-cmdline",    -- source cmdline
-        "hrsh7th/cmp-path",       -- source for file system paths
-        "L3MON4D3/LuaSnip",       -- snippet engine
+        "hrsh7th/cmp-buffer", -- source for text in buffer
+        "hrsh7th/cmp-cmdline", -- source cmdline
+        "hrsh7th/cmp-path", -- source for file system paths
+        "L3MON4D3/LuaSnip", -- snippet engine
         "rafamadriz/friendly-snippets", -- useful snippets
         "saadparwaiz1/cmp_luasnip", -- for autocompletion
     },
@@ -65,10 +65,14 @@ return {
                         cmp.complete()
                     end
                 end,
-                ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<C-p>"] = cmp.mapping.select_prev_item({
+                    behavior = cmp.SelectBehavior.Insert,
+                }),
                 ["<C-n>"] = function()
                     if cmp.visible() then
-                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                        cmp.select_next_item({
+                            behavior = cmp.SelectBehavior.Insert,
+                        })
                     else
                         cmp.complete()
                     end
@@ -99,7 +103,8 @@ return {
             formatting = {
                 fields = { "kind", "abbr", "menu" },
                 format = function(entry, vim_item)
-                    vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+                    vim_item.kind =
+                        string.format("%s", kind_icons[vim_item.kind])
                     vim_item.menu = ({
                         buffer = "Buffer",
                         luasnip = "Snippet",

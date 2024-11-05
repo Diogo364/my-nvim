@@ -86,7 +86,8 @@ end, { desc = "Open Treesitter query layout" })
 -- Autocmds
 
 -- Close empty_unnamed_buffer when openning new buffer
-local group_empty_buffer = vim.api.nvim_create_augroup("group_empty_unnamed_buffer", { clear = true })
+local group_empty_buffer =
+    vim.api.nvim_create_augroup("group_empty_unnamed_buffer", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = "",
     callback = function()
@@ -112,7 +113,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 -- Opens Alpha instead of unnamed buffer
-local group_empty_buffer_alpha = vim.api.nvim_create_augroup("group_alpha_empty_unnamed_buffer", { clear = true })
+local group_empty_buffer_alpha = vim.api.nvim_create_augroup(
+    "group_alpha_empty_unnamed_buffer",
+    { clear = true }
+)
 vim.api.nvim_create_autocmd("VimEnter", {
     group = group_empty_buffer_alpha,
     pattern = "",
@@ -124,7 +128,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end,
 })
 
-local group_term_bufr = vim.api.nvim_create_augroup("group_term_bufr", { clear = true })
+local group_term_bufr =
+    vim.api.nvim_create_augroup("group_term_bufr", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "*",
     callback = function()

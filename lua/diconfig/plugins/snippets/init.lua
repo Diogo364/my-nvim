@@ -48,7 +48,14 @@ ls.config.set_config({
     },
 })
 
-for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/diconfig/plugins/snippets/after/*.lua", true)) do
+for _, ft_path in
+    ipairs(
+        vim.api.nvim_get_runtime_file(
+            "lua/diconfig/plugins/snippets/after/*.lua",
+            true
+        )
+    )
+do
     vim.inspect(ft_path)
     loadfile(ft_path)()
 end
@@ -74,7 +81,10 @@ vim.keymap.set({ "i", "s" }, "<C-L>", function()
 end, { silent = true, desc = "Toggle Choices" })
 
 vim.keymap.set("n", "<leader>rls", function()
-    local custom_snippets_path = vim.fs.joinpath(vim.fn.stdpath("config"), "lua/diconfig/plugins/snippets/init.lua")
+    local custom_snippets_path = vim.fs.joinpath(
+        vim.fn.stdpath("config"),
+        "lua/diconfig/plugins/snippets/init.lua"
+    )
     loadfile(custom_snippets_path)()
 end, { desc = "Reload LuaSnips module" })
 

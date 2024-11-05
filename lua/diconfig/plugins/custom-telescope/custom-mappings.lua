@@ -27,19 +27,22 @@ M.find_files = {
         ["v"] = actions.toggle_selection,
 
         ["to"] = function(prompt_bufnr)
-            local entry = require("telescope.actions.state").get_selected_entry()
+            local entry =
+                require("telescope.actions.state").get_selected_entry()
             require("telescope.actions").close(prompt_bufnr)
             vim.cmd(string.format(":!tmux neww nvim %s", entry.path))
         end,
 
         ["ts"] = function(prompt_bufnr)
-            local entry = require("telescope.actions.state").get_selected_entry()
+            local entry =
+                require("telescope.actions.state").get_selected_entry()
             require("telescope.actions").close(prompt_bufnr)
             vim.cmd(string.format(":!tmux splitw -h nvim %s", entry.path))
         end,
 
         ["cd"] = function(prompt_bufnr)
-            local selection = require("telescope.actions.state").get_selected_entry()
+            local selection =
+                require("telescope.actions.state").get_selected_entry()
             local dir = vim.fn.fnamemodify(selection.path, ":p:h")
             require("telescope.actions").close(prompt_bufnr)
             -- Depending on what you want put `cd`, `lcd`, `tcd`
@@ -56,10 +59,14 @@ M.find_files = {
         ["<leader><CR>"] = custom.system_open_file,
 
         ["fd"] = function(prompt_bufnr)
-            local entry = require("telescope.actions.state").get_selected_entry()
+            local entry =
+                require("telescope.actions.state").get_selected_entry()
             local entry_path = entry.path
 
-            if vim.fn.input(string.format("Delete %s [y/n]: ", entry_path)) == "y" then
+            if
+                vim.fn.input(string.format("Delete %s [y/n]: ", entry_path))
+                == "y"
+            then
                 close_matched_buffers({
                     compare_func = function(bufnr)
                         return is_specific_buffer(bufnr, entry_path)
@@ -127,7 +134,8 @@ M.buffers = {
         ["<M-v>"] = actions_layout.toggle_preview,
 
         ["<C-d>"] = function(prompt_bufnr)
-            local entry = require("telescope.actions.state").get_selected_entry()
+            local entry =
+                require("telescope.actions.state").get_selected_entry()
             local entry_path = entry.path
 
             close_matched_buffers({

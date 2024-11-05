@@ -4,7 +4,7 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
-        { "nvim-telescope/telescope-fzf-native.nvim",     build = "make" },
+        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
         { "nvim-telescope/telescope-symbols.nvim" },
     },

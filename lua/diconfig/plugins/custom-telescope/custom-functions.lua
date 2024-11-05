@@ -1,5 +1,5 @@
 local previewers = require("telescope.previewers")
-local action_state = require "telescope.actions.state"
+local action_state = require("telescope.actions.state")
 local Job = require("plenary.job")
 
 M = {}
@@ -13,10 +13,17 @@ M.focus_preview = function(prompt_bufnr)
     local bufnr = previewer.state.bufnr
 
     vim.keymap.set("n", "<Tab>", function()
-        vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", prompt_win))
+        vim.cmd(
+            string.format(
+                "noautocmd lua vim.api.nvim_set_current_win(%s)",
+                prompt_win
+            )
+        )
     end, { buffer = bufnr, desc = "Switch to prompt window" })
 
-    vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", winid))
+    vim.cmd(
+        string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", winid)
+    )
     -- api.nvim_set_current_win(winid)
 end
 
@@ -63,52 +70,16 @@ M.buffer_previewer_maker = function(filepath, bufnr, opts)
             else
                 -- maybe we want to write something to the buffer here
                 vim.schedule(function()
-                    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+                    vim.api.nvim_buf_set_lines(
+                        bufnr,
+                        0,
+                        -1,
+                        false,
+                        { "BINARY" }
+                    )
                 end)
             end
         end,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }):sync()
 end
 

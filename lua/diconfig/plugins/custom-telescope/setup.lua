@@ -1,5 +1,8 @@
-local custom_mappings = require("diconfig.plugins.custom-telescope.custom-mappings")
-local buffer_previewer_maker = require("diconfig.plugins.custom-telescope.custom-functions").buffer_previewer_maker
+local custom_mappings =
+    require("diconfig.plugins.custom-telescope.custom-mappings")
+local buffer_previewer_maker = require(
+    "diconfig.plugins.custom-telescope.custom-functions"
+).buffer_previewer_maker
 
 M = {
     defaults = {
@@ -57,7 +60,7 @@ M = {
     },
     extensions = {
         ["fzf"] = {
-            fuzzy = true,          -- false will only do exact matching
+            fuzzy = true, -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
             override_file_sorter = true, -- override the file sorter
             case_mode = "smart_case", -- or "ignore_case" or "respect_case"
