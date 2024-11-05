@@ -5,4 +5,4 @@ require("diconfig.core.custom_variables")
 require("diconfig.core.keymap")
 require("diconfig.core.file_management")
 require("diconfig.core.bufs_n_windows")
-
+require("diconfig.core.filetype")
