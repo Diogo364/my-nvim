@@ -2,7 +2,7 @@ return {
 	-- dir = "/home/dinascimento/Documents/myProjects/custom_nvim_lua_plugs/colorscheme_telescope.nvim",
 	-- name = "colorscheme-manager",
 	"Diogo364/colorscheme-manager.nvim",
-	branch = "sync-autocmd",
+	tag = "0.3.0",
 	config = function()
 		local ColorMyPencils = function()
 			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
