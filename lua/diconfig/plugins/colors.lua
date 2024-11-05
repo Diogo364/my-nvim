@@ -1,7 +1,8 @@
 return {
     {
         "folke/tokyonight.nvim",
-        lazy = true,
+        lazy = false,
+        priority = 1000,
         config = function()
             require("tokyonight").setup({
                 -- your configuration comes here
@@ -24,7 +25,8 @@ return {
     {
         "rose-pine/neovim",
         name = "rose-pine",
-        lazy = true,
+        lazy = false,
+        priority = 1000,
         config = function()
             require("rose-pine").setup({
                 disable_background = true,
@@ -36,6 +38,7 @@ return {
     },
     {
         "rebelot/kanagawa.nvim",
-        lazy = true,
+        lazy = false,
+        priority = 1000,
     },
 }
