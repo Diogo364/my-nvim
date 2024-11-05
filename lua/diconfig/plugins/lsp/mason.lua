@@ -44,10 +44,7 @@ return {
         mason_tool_installer.setup({
             ensure_installed = {
                 "black",
-                "flake8",
                 "isort",
-                "pylint",
-                "debugpy",
             },
         })
     end,
