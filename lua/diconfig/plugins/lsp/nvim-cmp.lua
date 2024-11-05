@@ -89,15 +89,7 @@ return {
                 { name = "luasnip" }, -- snippets
                 { name = "buffer" }, -- text within current buffer
                 -- file system paths
-                {
-                    name = "path",
-                    option = {
-                        label_trailing_slash = true,
-                        get_cwd = function()
-                            return vim.fn.getcwd()
-                        end,
-                    },
-                },
+                { name = "path" },
             }),
             snippet = {
                 expand = function(args)
@@ -131,7 +123,6 @@ return {
                 },
             },
         })
-
         -- `/` cmdline setup.
         cmp.setup.cmdline("/", {
             mapping = cmp.mapping.preset.cmdline(),
