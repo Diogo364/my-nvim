@@ -110,3 +110,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
     group = group_term_bufr,
 })
+
+local group_custom_filetype =
+    vim.api.nvim_create_augroup("group_custom_filetype", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    command = "set fo-=ro",
+    group = group_custom_filetype,
+})
