@@ -108,6 +108,20 @@ vim.keymap.set(
 
 vim.keymap.set(
     "n",
+    "<leader>ct",
+    ":call jukit#cells#create_below(1)<cr>",
+    { buffer = true, desc = "Create new markdown cell below" }
+)
+
+vim.keymap.set(
+    "n",
+    "<leader>cT",
+    ":call jukit#cells#create_above(1)<cr>",
+    { buffer = true, desc = "Create new markdown cell above" }
+)
+
+vim.keymap.set(
+    "n",
     "<leader>cd",
     ":call jukit#cells#delete()<cr>",
     { buffer = true, desc = "Delete current cell" }
@@ -174,4 +188,11 @@ vim.keymap.set(
     "<leader>dda",
     ":call jukit#cells#delete_outputs(1)<cr>",
     { buffer = true, desc = "Delete saved outputs of all cells" }
+)
+
+vim.api.nvim_buf_create_user_command(
+    0,
+    "JukitConvertToNotebook",
+    ":call jukit#convert#notebook_convert('jupyter-notebook')<CR>",
+    { desc = "Convert Python file into Jupyter Notebook Format" }
 )
