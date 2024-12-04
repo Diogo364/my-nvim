@@ -101,22 +101,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end,
 })
 
--- Opens Alpha instead of unnamed buffer
-local group_empty_buffer_alpha = vim.api.nvim_create_augroup(
-    "group_alpha_empty_unnamed_buffer",
-    { clear = true }
-)
-vim.api.nvim_create_autocmd("VimEnter", {
-    group = group_empty_buffer_alpha,
-    pattern = "",
-    callback = function()
-        if vim.fn.isdirectory(vim.fn.expand("%")) == 1 then
-            vim.cmd("Bdelete")
-            vim.cmd("Alpha")
-        end
-    end,
-})
-
 local group_term_bufr =
     vim.api.nvim_create_augroup("group_term_bufr", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
