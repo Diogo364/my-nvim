@@ -4,6 +4,8 @@ return {
     version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     -- install jsregexp (optional!).
     build = "make install_jsregexp",
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
         vim.g.snippets = "luasnip"
         require("diconfig.plugins.snippets")

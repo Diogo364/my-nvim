@@ -1,5 +1,6 @@
 return {
     "goolord/alpha-nvim",
+    priority = 1000,
     dependencies = {
         "echasnovski/mini.icons",
         "nvim-tree/nvim-web-devicons",

@@ -1,12 +1,11 @@
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
+    priority = 1000,
+    opts = function(_, config)
         -- Eviline config for lualine
         -- Author: shadmansaleh
         -- Credit: glepnir
-        local lualine = require("lualine")
-
         -- stylua: ignore
         local colors = {
             bg       = '#202328',
@@ -46,55 +45,51 @@ return {
             end,
         }
 
-        local config = {
-            options = {
-                -- Disable sections and component separators
-                component_separators = "",
-                section_separators = "",
-                theme = {
-                    normal = { c = { fg = colors.fg, bg = colors.bg } },
-                    inactive = { c = { fg = colors.fg, bg = colors.darkgray } },
-                },
+        config.options = {}
+        config.options.component_separators = ""
+        config.options.section_separators = ""
+        config.options.theme = {
+            normal = { c = { fg = colors.fg, bg = colors.bg } },
+            inactive = { c = { fg = colors.fg, bg = colors.darkgray } },
+        }
+        config.sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_y = {},
+            lualine_z = {},
+            lualine_c = {},
+            lualine_x = {},
+        }
+        config.inactive_sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_y = {},
+            lualine_z = {},
+            lualine_c = {},
+            lualine_x = {},
+        }
+        config.winbar = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {
+                -- {
+                --     "filename",
+                --     file_status = true, -- Displays file status (readonly status, modified status)
+                --     newfile_status = false, -- Display new file status (new file means no write after created)
+                --     path = 3,
+                --     shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+                --     symbols = {
+                --         modified = "[+]", -- Text to show when the file is modified.
+                --         readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
+                --         unnamed = "[No Name]", -- Text to show for unnamed buffers.
+                --         newfile = "[New]", -- Text to show for newly created file before first write
+                --     },
+                --     color = { fg = colors.fg, gui = "italic" },
+                -- },
             },
-            sections = {
-                lualine_a = {},
-                lualine_b = {},
-                lualine_y = {},
-                lualine_z = {},
-                lualine_c = {},
-                lualine_x = {},
-            },
-            inactive_sections = {
-                lualine_a = {},
-                lualine_b = {},
-                lualine_y = {},
-                lualine_z = {},
-                lualine_c = {},
-                lualine_x = {},
-            },
-            winbar = {
-                lualine_a = {},
-                lualine_b = {},
-                lualine_c = {},
-                lualine_x = {
-                    {
-                        "filename",
-                        file_status = true, -- Displays file status (readonly status, modified status)
-                        newfile_status = false, -- Display new file status (new file means no write after created)
-                        path = 3,
-                        shorting_target = 40, -- Shortens path to leave 40 spaces in the window
-                        symbols = {
-                            modified = "[+]", -- Text to show when the file is modified.
-                            readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
-                            unnamed = "[No Name]", -- Text to show for unnamed buffers.
-                            newfile = "[New]", -- Text to show for newly created file before first write
-                        },
-                        color = { fg = colors.fg, gui = "italic" },
-                    },
-                },
-                lualine_y = {},
-                lualine_z = {},
-            },
+            lualine_y = {},
+            lualine_z = {},
         }
 
         local left_active = config.sections.lualine_c
@@ -194,8 +189,9 @@ return {
             -- Lsp server name .
             function()
                 local msg = "No Active Lsp"
-                local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-                local clients = vim.lsp.get_active_clients()
+                local buf_ft =
+                    vim.api.nvim_get_option_value("filetype", { buf = 0 })
+                local clients = vim.lsp.get_clients()
                 if next(clients) == nil then
                     return msg
                 end
@@ -259,6 +255,6 @@ return {
             padding = { left = 1 },
         }, { right_inactive })
 
-        lualine.setup(config)
+        return config
     end,
 }
