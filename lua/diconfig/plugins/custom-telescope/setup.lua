@@ -6,9 +6,6 @@ local buffer_previewer_maker = require(
 
 M = {
     defaults = {
-        -- path_display = { "smart" },
-        -- file_ignore_patterns = AlwaysHidePattern,
-
         buffer_previewer_maker = buffer_previewer_maker,
         preview = {
             filesize_limit = 0.5, -- MB
@@ -74,4 +71,3 @@ M = {
 }
 
 require("telescope").setup(M)
-require("diconfig.plugins.custom-telescope.keybindings")
