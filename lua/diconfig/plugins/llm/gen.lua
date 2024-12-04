@@ -3,6 +3,7 @@ local prompts = require("diconfig.plugins.llm.config.prompts")
 
 return {
     "David-Kunz/gen.nvim",
+    lazy = true,
     keys = {
         {
             mode = { "n", "v" },
@@ -18,7 +19,7 @@ return {
             model = config.models.chat_model, -- The default model to use.
             quit_map = "q", -- set keymap to close the response window
             retry_map = "<C-R>", -- set keymap to re-send the current prompt
-            accept_map = "<C-CR>", -- set keymap to replace the previous selection with the last result
+            accept_map = "<C-y>", -- set keymap to replace the previous selection with the last result
             host = config.setup.host, -- The host running the Ollama service.
             port = config.setup.port, -- The port on which the Ollama service is listening.
             display_mode = "float", -- The display mode. Can be "float" or "split" or "horizontal-split".
@@ -44,7 +45,7 @@ return {
             -- The executed command must return a JSON object with { response, context }
             -- (context property is optional).
             -- list_models = '<omitted lua function>', -- Retrieves a list of model names
-            debug = true, -- Prints errors and the command which is run.
+            debug = false, -- Prints errors and the command which is run.
         })
         gen.prompts = prompts
     end,
