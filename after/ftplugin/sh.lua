@@ -34,3 +34,19 @@ vim.keymap.set("n", "<leader>x", function()
         vim.api.nvim_set_current_win(neww)
     end
 end, { buffer = true, desc = "Run Shell Script" })
+
+vim.api.nvim_buf_create_user_command(0, "SendToLocalBin", function()
+    local Path = require("plenary.path")
+
+    local target_dir = Path:new("~/.local/bin/")
+    local curr_file = Path:new(vim.fn.expand("%"))
+    local file_components = curr_file:_split()
+
+    local target_file =
+        target_dir:joinpath(file_components[#file_components]).filename
+    curr_file = curr_file.filename
+
+    os.execute("chmod +x " .. curr_file)
+    os.execute(string.format("cp %s %s", curr_file, target_file))
+    print(string.format("%s available at %s", curr_file, target_file))
+end, { desc = "Send file to .local/bin" })
