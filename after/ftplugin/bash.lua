@@ -1,0 +1,1 @@
+/home/dinascimento/.dotfiles/.config/nvim/after/ftplugin/sh.lua
