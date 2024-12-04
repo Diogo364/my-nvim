@@ -21,16 +21,13 @@ end, { desc = "Delete the current file" })
 vim.keymap.set("n", "<leader>fc", function()
     local curr_file = vim.fn.expand("%:p")
     local new_filename = nil
-    vim.ui.input(
-        {
-            prompt = string.format("copy %s to:", curr_file),
-            completion = "file",
-            default = curr_file,
-        },
-        function(input)
-            new_filename = input
-        end
-    )
+    vim.ui.input({
+        prompt = string.format("copy %s to:", curr_file),
+        completion = "file",
+        default = curr_file,
+    }, function(input)
+        new_filename = input
+    end)
     if new_filename == nil then
         print("Canceled")
         return
@@ -42,16 +39,13 @@ end, { desc = "Copied the current file" })
 vim.keymap.set("n", "<leader>fm", function()
     local curr_file = vim.fn.expand("%:p")
     local new_filename = nil
-    vim.ui.input(
-        {
-            prompt = string.format("Move %s: ", curr_file),
-            completion = "file",
-            default = curr_file,
-        },
-        function(input)
-            new_filename = input
-        end
-    )
+    vim.ui.input({
+        prompt = string.format("Move %s: ", curr_file),
+        completion = "file",
+        default = curr_file,
+    }, function(input)
+        new_filename = input
+    end)
     if new_filename == nil then
         print("Canceled")
         return
