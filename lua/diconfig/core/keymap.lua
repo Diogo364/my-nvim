@@ -13,12 +13,12 @@ vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { desc = "Move to pane above" })
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { desc = "Move to pane below" })
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { desc = "Move to left pane" })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { desc = "Move to right pane" })
--- TODO: Toggle floating window
+
 vim.keymap.set(
     "n",
-    "<C-<leader>>",
-    ":echo 'tudo bem'<CR>",
-    { desc = "Move to right pane" }
+    "<C-Space>",
+    ":wincmd w<CR>",
+    { desc = "Move between floating windows" }
 )
 
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join line without moving cursor" })
