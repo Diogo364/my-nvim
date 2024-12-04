@@ -9,6 +9,6 @@ return {
     setup = setup,
     models = {
         chat_model = "llama3.2:1b",
-        code_model = "codellama:7b-code",
+        code_model = "codellama:7b",
     },
 }
