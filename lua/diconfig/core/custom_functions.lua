@@ -20,15 +20,6 @@ SendToNewScratchBuffer = function(content, opts, bufnr)
     return bufnr
 end
 
-if pcall(require, "plenary") then
-    RELOAD = require("plenary.reload").reload_module
-    R = function(module)
-        print("Reloading module ", module)
-        RELOAD(module)
-        return require(module)
-    end
-end
-
 -- Check if specific buffer
 function is_specific_buffer(bufnr, name)
     return (vim.api.nvim_buf_get_name(bufnr) == name)
