@@ -1,8 +1,11 @@
 return {
     "luk400/vim-jukit",
+    lazy = true,
+    ft = { "python" },
     init = function()
         -- Jukit Global Config
         vim.g.jukit_mappings = 0
+        vim.g.jukit_terminal = "nvimterm"
         vim.g.jukit_layout = {
             p1 = 0.65,
             split = "vertical",
