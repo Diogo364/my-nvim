@@ -93,10 +93,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
     group = group_cdpwd,
     pattern = "*",
     callback = function()
-        local cwd = nil
-        if package.loaded.oil ~= nil then
-            cwd = require("oil").get_current_dir()
-        else
+        local _, cwd = pcall(require("oil").get_current_dir)
+        if cwd == nil then
             cwd = vim.fn.expand("%:p:h")
         end
         vim.api.nvim_set_current_dir(cwd)
