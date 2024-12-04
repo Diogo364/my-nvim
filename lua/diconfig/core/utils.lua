@@ -147,17 +147,13 @@ function DownloadDevcontainerTemplate()
     )
 end
 
-vim.api.nvim_create_user_command(
-    "DownloadFile",
-    function(args)
-        DownloadFile(args.fargs[1], args.fargs[2])
-    end,
-    {
-        nargs = "*",
-        complete = "file",
-        desc = "Download my custom devcontainer template from GH",
-    }
-)
+vim.api.nvim_create_user_command("DownloadFile", function(args)
+    DownloadFile(args.fargs[1], args.fargs[2])
+end, {
+    nargs = "*",
+    complete = "file",
+    desc = "Download my custom devcontainer template from GH",
+})
 
 vim.api.nvim_create_user_command(
     "DownloadDevcontainerTemplate",
