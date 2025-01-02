@@ -118,3 +118,12 @@ vim.api.nvim_create_autocmd("FileType", {
     command = "set fo-=ro",
     group = group_custom_filetype,
 })
+
+local group_custom_yank =
+    vim.api.nvim_create_augroup("group_custom_yank", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = group_custom_yank,
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
