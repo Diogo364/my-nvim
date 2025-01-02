@@ -4,20 +4,26 @@ return {
     event = "BufEnter",
     build = ":TSUpdate",
     config = function()
+        local disabled_lang_list = { "csv" }
         require("nvim-treesitter.configs").setup({
             -- A list of parser names, or "all"
             ensure_installed = {
-                "vimdoc",
-                "c",
-                "lua",
-                "rust",
-                "jsdoc",
                 "bash",
-                "python",
+                "c",
                 "dockerfile",
-                "regex",
+                "dot",
+                "html",
+                "json",
+                "lua",
+                "make",
                 "markdown",
                 "markdown_inline",
+                "python",
+                "regex",
+                "rust",
+                "toml",
+                "vimdoc",
+                "yaml",
             },
 
             ignore_install = {},
@@ -43,9 +49,17 @@ return {
                 -- Instead of true it can also be a list of languages
                 additional_vim_regex_highlighting = { "markdown" },
 
-                disable = {
-                    "csv",
-                },
+                disable = function(lang, buf)
+                    local max_filesize = 100 * 1024 -- 100 KB
+                    local ok, stats =
+                        pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                    if ok and stats and stats.size > max_filesize then
+                        return true
+                    end
+                    if vim.tbl_contains(disabled_lang_list, lang) then
+                        return true
+                    end
+                end,
             },
         })
 
