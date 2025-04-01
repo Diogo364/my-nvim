@@ -13,3 +13,6 @@ vim.keymap.set(
     "<CMD>tab split<CR>",
     { desc = "Create new tab" }
 )
+
+vim.keymap.set("n", "]q", "<CMD>cnext<CR>", { desc = "Open Next Quickfix" })
+vim.keymap.set("n", "[q", "<CMD>cprev<CR>", { desc = "Open Previous Quickfix" })

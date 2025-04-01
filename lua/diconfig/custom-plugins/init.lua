@@ -1,0 +1,5 @@
+require("diconfig.custom-plugins.utils")
+require("diconfig.custom-plugins.bufs_n_windows")
+require("diconfig.custom-plugins.custom_functions")
+require("diconfig.custom-plugins.custom_variables")
+require("diconfig.custom-plugins.file_management")

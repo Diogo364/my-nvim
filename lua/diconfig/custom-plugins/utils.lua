@@ -47,27 +47,6 @@ function SwitchCase()
     end
 end
 
--- Execute Lua line
-function RunLuaLine()
-    local pos_list = {
-        vim.fn.getpos("v")[2],
-        vim.fn.getpos(".")[2],
-    }
-    table.sort(pos_list)
-
-    local line_start = pos_list[1]
-    local line_end = pos_list[2]
-
-    local cmd = vim.api.nvim_buf_get_lines(0, line_start - 1, line_end, false)
-    if cmd == nil then
-        return nil
-    end
-
-    local concatenated_cmd = table.concat(cmd, "\n")
-    print("Run: ", concatenated_cmd)
-    load(concatenated_cmd)()
-end
-
 ---Lua function encapsulation for a simple wget call
 ---@param url string
 ---@param dest string? Output path (Default="./"). Both file or dir are accepted. Should end with / to be considered a dir, though.

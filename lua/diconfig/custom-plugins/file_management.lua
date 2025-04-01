@@ -10,7 +10,7 @@ vim.keymap.set("n", "<leader>fd", function()
     )
 
     if should_delete == "y" then
-        vim.cmd("Bdelete!")
+        vim.cmd("q!")
         os.remove(curr_file)
         print("Deleted ", curr_file)
     else
@@ -89,5 +89,3 @@ vim.keymap.set(
     ":e /tmp/tmp.txt<cr>",
     { desc = "Open temporary file" }
 )
-
-vim.keymap.set("v", "<leader>x", RunLuaLine, { desc = "Run Lua code" })
