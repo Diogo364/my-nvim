@@ -183,11 +183,6 @@ vim.keymap.set("n", "<M-->", "<C-W>2-", { desc = "Decrease split height" })
 vim.keymap.set("n", "<M->>", "<C-W>5>", { desc = "Increase split width" })
 vim.keymap.set("n", "<M-<>", "<C-W>5<", { desc = "Decrease split width" })
 
--- Source config
-vim.keymap.set("v", "<leader>x", function()
-    RunLuaLine()
-end, { desc = "Run Lua code" })
-
 -- Create terminal split at bottom of screen
 vim.keymap.set(
     "n",
