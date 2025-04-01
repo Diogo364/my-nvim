@@ -4,7 +4,7 @@ return {
     event = "BufEnter",
     build = ":TSUpdate",
     config = function()
-        local disabled_lang_list = { "csv" }
+        local disabled_lang_list = { "csv", "tsv" }
         require("nvim-treesitter.configs").setup({
             -- A list of parser names, or "all"
             ensure_installed = {
