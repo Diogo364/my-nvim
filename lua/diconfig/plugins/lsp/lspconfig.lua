@@ -3,7 +3,6 @@ return {
     lazy = true,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
         {
             "folke/lazydev.nvim",
@@ -17,11 +16,7 @@ return {
         { "nvim-telescope/telescope.nvim" },
     },
     config = function()
-        -- import lspconfig plugin
         local lspconfig = require("lspconfig")
-
-        -- import cmp-nvim-lsp plugin
-        local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         local on_attach = function(client, bufnr)
             vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", {
@@ -141,8 +136,7 @@ return {
                 silent = true,
             })
         end
-        -- used to enable autocompletion (assign to every lsp server config)
-        local capabilities = cmp_nvim_lsp.default_capabilities()
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
 
         -- Change the Diagnostic symbols in the sign column (gutter)
         local signs =
@@ -151,8 +145,6 @@ return {
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
-
-        -- configure html server
 
         lspconfig["bashls"].setup({
             capabilities = capabilities,
