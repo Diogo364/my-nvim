@@ -47,22 +47,22 @@ return {
         prompt = "Enhance the following code, only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
         model = config.models.code_model,
         replace = true,
-        extract = "```$filetype\n(.-)```",
+        extract = "```$filetype\n(.*)```",
     },
     ["Change_Code"] = {
         prompt = "Regarding the following code, $input, only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
         model = config.models.code_model,
         replace = true,
-        extract = "```$filetype\n(.-)```",
+        extract = "```$filetype\n(.*)```",
     },
     ["Create_Code"] = {
         model = config.models.code_model,
         prompt = "Create a code that is able to, $input, only output the result in format ```$filetype\n...\n```",
-        extract = "```$filetype\n(.-)```",
+        extract = "```$filetype\n(.*)```",
     },
     ["Create_Code_Selection"] = {
         model = config.models.code_model,
         prompt = "Create a code that is able to, $text, only output the result in format ```$filetype\n...\n```",
-        extract = "```$filetype\n(.-)```",
+        extract = "```$filetype\n(.*)```",
     },
 }
