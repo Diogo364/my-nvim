@@ -22,10 +22,10 @@ return {
             accept_map = "<C-y>", -- set keymap to replace the previous selection with the last result
             host = config.setup.host, -- The host running the Ollama service.
             port = config.setup.port, -- The port on which the Ollama service is listening.
-            display_mode = "float", -- The display mode. Can be "float" or "split" or "horizontal-split".
+            display_mode = "horizontal-split", -- The display mode. Can be "float" or "split" or "horizontal-split".
             show_prompt = true, -- shows the prompt submitted to Ollama.
             show_model = true, -- Displays which model you are using at the beginning of your chat session.
-            no_auto_close = false, -- Never closes the window automatically.
+            no_auto_close = true, -- Never closes the window automatically.
             file = true, -- Write the payload to a temporary file to keep the command short.
             hidden = false, -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
             init = function(options)
