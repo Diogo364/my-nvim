@@ -17,6 +17,9 @@ return {
     },
     config = function()
         local lspconfig = require("lspconfig")
+        local blink = require("blink.cmp")
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = blink.get_lsp_capabilities(capabilities)
 
         local on_attach = function(client, bufnr)
             vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", {
@@ -136,7 +139,6 @@ return {
                 silent = true,
             })
         end
-        local capabilities = require("blink.cmp").get_lsp_capabilities()
 
         -- Change the Diagnostic symbols in the sign column (gutter)
         local signs =
