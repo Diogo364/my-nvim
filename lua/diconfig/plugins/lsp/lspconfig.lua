@@ -114,12 +114,6 @@ return {
                 noremap = true,
                 silent = true,
             })
-            vim.keymap.set("i", "<M-k>", vim.lsp.buf.completion, {
-                desc = "Show documentation for what is under cursor",
-                buffer = bufnr,
-                noremap = true,
-                silent = true,
-            })
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {
                 desc = "Show documentation for what is under cursor",
                 buffer = bufnr,
