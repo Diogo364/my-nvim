@@ -34,10 +34,13 @@ M.mason = {
         "rust_analyzer",
         "html",
         "cssls",
+        "tailwindcss",
+        "ts_ls",
     },
     formatter = {
         "black",
         "isort",
+        "prettierd",
     },
 }
 
