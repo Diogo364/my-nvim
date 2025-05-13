@@ -11,6 +11,8 @@ return {
         -- import mason-lspconfig
         local mason_lspconfig = require("mason-lspconfig")
 
+        local utils = require("diconfig.plugins.lsp_utils.lang_list")
+
         -- enable mason and configure icons
         mason.setup({
             ui = {
@@ -23,29 +25,14 @@ return {
         })
         mason_lspconfig.setup({
             --list of servers for mason to install
-            ensure_installed = {
-                "bashls",
-                "docker_compose_language_service",
-                "dockerls",
-                "gopls",
-                "jsonls",
-                "lua_ls",
-                "markdown_oxide",
-                "pyright",
-                "rust_analyzer",
-                "html",
-                "cssls",
-            },
+            ensure_installed = utils.mason.lsp,
             -- auto-install configured servers (with lspconfig)
             automatic_installation = true, -- not the same as ensure_installed
         })
         -- import mason-tool-installer
         local mason_tool_installer = require("mason-tool-installer")
         mason_tool_installer.setup({
-            ensure_installed = {
-                "black",
-                "isort",
-            },
+            ensure_installed = utils.mason.formatter,
         })
     end,
 }

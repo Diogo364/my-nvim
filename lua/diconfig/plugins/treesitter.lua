@@ -5,26 +5,10 @@ return {
     build = ":TSUpdate",
     config = function()
         local disabled_lang_list = { "csv", "tsv" }
+        local utils = require("diconfig.plugins.lsp_utils.lang_list")
         require("nvim-treesitter.configs").setup({
             -- A list of parser names, or "all"
-            ensure_installed = {
-                "bash",
-                "c",
-                "dockerfile",
-                "dot",
-                "html",
-                "json",
-                "lua",
-                "make",
-                "markdown",
-                "markdown_inline",
-                "python",
-                "regex",
-                "rust",
-                "toml",
-                "vimdoc",
-                "yaml",
-            },
+            ensure_installed = utils.treesitter,
 
             ignore_install = {},
 
