@@ -15,8 +15,9 @@ M.treesitter = {
     "regex",
     "rust",
     "toml",
-    "typescript",
     "tsx",
+    "typescript",
+    "typst",
     "vimdoc",
     "yaml",
 }
