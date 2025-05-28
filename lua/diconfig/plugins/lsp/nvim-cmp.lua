@@ -14,8 +14,6 @@ return {
         -- If you want insert `(` after select function or method item
         local cmp = require("cmp")
 
-        local luasnip = require("luasnip")
-
         local kind_icons = {
             Array = " ",
             Boolean = " ",
