@@ -23,6 +23,9 @@ return {
         signature = { enabled = true },
         sources = {
             default = { "buffer", "lsp", "path", "snippets" },
+            per_filetype = {
+                codecompanion = { "codecompanion" },
+            },
             providers = {
                 path = {
                     opts = {
