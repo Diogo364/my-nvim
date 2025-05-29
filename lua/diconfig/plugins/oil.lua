@@ -32,7 +32,7 @@ end
 
 return {
     "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "echasnovski/mini.icons" },
     opts = function()
         vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open Oil" })
         return {
