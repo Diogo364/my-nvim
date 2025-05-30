@@ -1,18 +1,5 @@
 return {
     {
-        "iamcco/markdown-preview.nvim",
-        lazy = true,
-        cmd = {
-            "MarkdownPreviewToggle",
-            "MarkdownPreview",
-            "MarkdownPreviewStop",
-        },
-        ft = { "markdown" },
-        build = function()
-            vim.fn["mkdp#util#install"]()
-        end,
-    },
-    {
         "MeanderingProgrammer/render-markdown.nvim",
         enabled = true,
         dependencies = {
@@ -22,6 +9,16 @@ return {
         ft = { "markdown", "codecompanion" },
         opts = {
             completions = { blink = { enabled = true } },
+            heading = {
+                enabled = false,
+                left_pad = 2,
+            },
+            bullet = {
+                left_pad = 2,
+            },
+            pipe_table = {
+                preset = "round",
+            },
         },
     },
 }
