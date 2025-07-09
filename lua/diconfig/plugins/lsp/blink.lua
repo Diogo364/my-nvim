@@ -25,8 +25,13 @@ return {
             default = { "buffer", "lsp", "path", "snippets" },
             per_filetype = {
                 codecompanion = { "codecompanion" },
+                sql = { "dadbod", "buffer" },
             },
             providers = {
+                dadbod = {
+                    name = "Dadbod",
+                    module = "vim_dadbod_completion.blink",
+                },
                 path = {
                     opts = {
                         get_cwd = function(_)

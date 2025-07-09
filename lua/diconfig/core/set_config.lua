@@ -1,15 +1,3 @@
-vim.g.clipboard = {
-    name = "CustomYankHistory",
-    copy = {
-        ["+"] = { "yank", "-" },
-        ["*"] = { "yank", "-" },
-    },
-    paste = {
-        ["+"] = { "xclip", "-o", "-selection", "clipboard", "-" },
-        ["*"] = { "xclip", "-o", "-selection", "clipboard", "-" },
-    },
-}
-
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
@@ -33,7 +21,7 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true

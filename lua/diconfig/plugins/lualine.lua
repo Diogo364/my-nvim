@@ -1,6 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- enabled = false,
     priority = 1000,
     opts = function(_, config)
         -- Eviline config for lualine

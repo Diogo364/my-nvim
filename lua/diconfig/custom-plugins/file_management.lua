@@ -10,7 +10,7 @@ vim.keymap.set("n", "<leader>fd", function()
     )
 
     if should_delete == "y" then
-        vim.cmd("q!")
+        -- vim.cmd("q!")
         os.remove(curr_file)
         print("Deleted ", curr_file)
     else

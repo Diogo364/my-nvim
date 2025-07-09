@@ -1,12 +1,5 @@
 vim.keymap.set(
     "n",
-    "<leader>ogs",
-    ":JukitOut conda activate general-qa<cr>",
-    { buffer = true, desc = "Activate conda environment 'general-qa'" }
-)
-
-vim.keymap.set(
-    "n",
     "<leader><cr>",
     ":call jukit#send#section(0)<cr>",
     { buffer = true, desc = "Send code within current cell to output" }

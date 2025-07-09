@@ -1,12 +1,12 @@
 vim.keymap.set(
     { "n", "v" },
-    "<C-a>",
+    "<leader>cca",
     "<cmd>CodeCompanionActions<cr>",
     { noremap = true, silent = true }
 )
 vim.keymap.set(
     { "n", "v" },
-    "<leader>comp",
+    "<leader>ccomp",
     "<cmd>CodeCompanionChat Toggle<cr>",
     { noremap = true, silent = true }
 )

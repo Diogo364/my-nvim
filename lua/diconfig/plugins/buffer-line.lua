@@ -3,7 +3,6 @@ return {
     version = "*",
     priority = 1000,
     dependencies = {
-        "nvim-tree/nvim-web-devicons",
         "moll/vim-bbye",
     },
     config = function()
@@ -47,7 +46,7 @@ return {
                 color_icons = true, -- whether or not to add the filetype icon highlights
                 get_element_icon = function(element)
                     local icon, hl =
-                        require("nvim-web-devicons").get_icon_by_filetype(
+                        require("mini.icons").mock_nvim_web_devicons(
                             element.filetype,
                             { default = false }
                         )
@@ -75,18 +74,6 @@ return {
         })
 
         -- Custom keymappings for plugin
-        vim.keymap.set(
-            "n",
-            "[b",
-            ":BufferLineCyclePrev<CR>",
-            { silent = true, desc = "Go to previous buffer" }
-        )
-        vim.keymap.set(
-            "n",
-            "]b",
-            ":BufferLineCycleNext<CR>",
-            { silent = true, desc = "Go to next buffer" }
-        )
         vim.keymap.set(
             "n",
             "<leader>q",

@@ -13,7 +13,7 @@ return {
     tag = "0.3.0",
     priority = 1000,
     opts = {
-        colorscheme = "moonfly",
+        colorscheme = "rose-pine-moon",
         enable_custom_options = true,
         custom_options_function = ColorMyPencils,
         autocmd = true,
