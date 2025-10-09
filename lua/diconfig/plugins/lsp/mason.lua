@@ -1,11 +1,9 @@
 return {
     "mason-org/mason.nvim",
-    dependencies = {
-        { "mason-org/mason-lspconfig.nvim", tag = "v2.0.0" },
-    },
+    lazy = true,
+    cmd = "Mason",
     config = function()
         local mason = require("mason")
-        local mason_lspconfig = require("mason-lspconfig")
 
         mason.setup({
             ui = {
@@ -15,10 +13,6 @@ return {
                     package_uninstalled = "✗",
                 },
             },
-        })
-
-        mason_lspconfig.setup({
-            automatic_enable = true,
         })
     end,
 }
