@@ -10,7 +10,7 @@ vim.keymap.set("n", "<leader>fd", function()
     )
 
     if should_delete == "y" then
-        -- vim.cmd("q!")
+        vim.cmd("Bdelete")
         os.remove(curr_file)
         print("Deleted ", curr_file)
     else
@@ -57,7 +57,6 @@ vim.keymap.set("n", "<leader>fm", function()
 end, { desc = "Move the current file" })
 
 vim.keymap.set("n", "<leader>fn", function()
-    local winnr = vim.api.nvim_get_current_win()
     local cwd = vim.fs.dirname(vim.fn.expand("%")) .. "/"
     local new_f = nil
 
@@ -75,9 +74,7 @@ vim.keymap.set("n", "<leader>fn", function()
         error(string.format("File %s already exists.", new_f))
     end
 
-    local bufnr = vim.fn.bufadd(new_f)
-    vim.api.nvim_win_set_buf(winnr, bufnr)
-
+    vim.cmd(string.format("e %s", new_f))
     vim.cmd("w")
 
     print(string.format("Created %s", new_f))
