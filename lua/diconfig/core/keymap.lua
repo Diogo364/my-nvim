@@ -106,7 +106,7 @@ vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })
 vim.keymap.set(
     "n",
     "Q",
-    "<cmd>silent !tmux neww qconf nvim<CR>",
+    "<cmd>silent !tmux neww qfind nvim<CR>",
     { desc = "Open a new tmux window" }
 )
 
@@ -180,8 +180,8 @@ vim.keymap.set("n", "<M-=>", "<C-W>=", { desc = "Equalize split sizes" })
 vim.keymap.set("n", "<M-+>", "<C-W>2+", { desc = "Increase split height" })
 vim.keymap.set("n", "<M-->", "<C-W>2-", { desc = "Decrease split height" })
 -- Horizontal resizing
-vim.keymap.set("n", "<M->>", "<C-W>5>", { desc = "Increase split width" })
-vim.keymap.set("n", "<M-<>", "<C-W>5<", { desc = "Decrease split width" })
+vim.keymap.set("n", "<M-.>", "<C-W>5>", { desc = "Increase split width" })
+vim.keymap.set("n", "<M-,>", "<C-W>5<", { desc = "Decrease split width" })
 
 -- Create terminal split at bottom of screen
 vim.keymap.set(
