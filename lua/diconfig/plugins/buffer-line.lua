@@ -76,6 +76,18 @@ return {
         -- Custom keymappings for plugin
         vim.keymap.set(
             "n",
+            "[b",
+            ":BufferLineCyclePrev<CR>",
+            { silent = true, desc = "Go to previous buffer" }
+        )
+        vim.keymap.set(
+            "n",
+            "]b",
+            ":BufferLineCycleNext<CR>",
+            { silent = true, desc = "Go to next buffer" }
+        )
+        vim.keymap.set(
+            "n",
             "<leader>q",
             ":Bdelete %<CR>",
             { silent = true, desc = "Close current buffer" }
