@@ -56,25 +56,24 @@ for _, ft_path in
         )
     )
 do
-    vim.inspect(ft_path)
     loadfile(ft_path)()
 end
 
-vim.keymap.set({ "i", "s" }, "<C-K>", function()
+vim.keymap.set({ "i", "s" }, "<M-k>", function()
     -- if ls.expand_or_jumpable() then
     --     ls.expand_or_jump()
     -- end
     return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
 end, { silent = true, desc = "Jump into next position" })
 
-vim.keymap.set({ "i", "s" }, "<C-J>", function()
+vim.keymap.set({ "i", "s" }, "<M-j>", function()
     -- if ls.jumpable(-1) then
     --     ls.jump(-1)
     -- end
     return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
 end, { silent = true, desc = "Jump into previous position" })
 
-vim.keymap.set({ "i", "s" }, "<C-L>", function()
+vim.keymap.set({ "i", "s" }, "<M-L>", function()
     if ls.choice_active() then
         ls.change_choice(1)
     end
