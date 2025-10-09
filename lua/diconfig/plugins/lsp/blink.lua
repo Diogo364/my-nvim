@@ -21,6 +21,7 @@ return {
             ghost_text = { enabled = true },
         },
         signature = { enabled = true },
+        snippets = { preset = "luasnip" },
         sources = {
             default = { "buffer", "lsp", "path", "snippets" },
             per_filetype = {
