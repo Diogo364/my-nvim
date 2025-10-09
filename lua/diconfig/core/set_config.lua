@@ -37,10 +37,12 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.cmdheight = 2
-vim.opt.conceallevel = 0
+vim.opt.conceallevel = 2
 vim.opt.pumheight = 10
 vim.opt.showmode = false
 vim.opt.showtabline = 1
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
