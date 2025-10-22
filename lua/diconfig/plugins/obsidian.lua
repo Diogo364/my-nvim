@@ -1,4 +1,6 @@
-MY_VAULT = vim.fn.expand("~/Documents/Personal/my-obsidian")
+MY_VAULT_ROOT = vim.fn.expand("~/Documents/Personal/obsidian")
+PERSONAL_VAULT = MY_VAULT_ROOT .. "/my-obsidian"
+WORK_VAULT = MY_VAULT_ROOT .. "/work-vault"
 
 local group_obsidian =
     vim.api.nvim_create_augroup("group_obsidian", { clear = true })
@@ -8,8 +10,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         local cwd = vim.fn.getcwd()
 
-        if vim.startswith(cwd, MY_VAULT) then
+        if vim.startswith(cwd, MY_VAULT_ROOT) then
             require("obsidian")
+
+            -- Explicitly set the workspace based on path
+            if vim.startswith(cwd, WORK_VAULT) then
+                vim.cmd("Obsidian workspace work")
+            end
         else
             require("render-markdown")
         end
@@ -30,7 +37,7 @@ return {
             workspaces = {
                 {
                     name = "personal",
-                    path = MY_VAULT .. "/personal",
+                    path = PERSONAL_VAULT,
                     strict = true,
                     overrides = {
                         new_notes_location = "notes_subdir",
@@ -39,7 +46,7 @@ return {
                 },
                 {
                     name = "work",
-                    path = MY_VAULT .. "/work",
+                    path = WORK_VAULT,
                     strict = true,
                     overrides = {
                         new_notes_location = "notes_subdir",
