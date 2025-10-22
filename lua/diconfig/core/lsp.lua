@@ -1,3 +1,8 @@
+for fn, _ in vim.fs.dir(vim.fn.stdpath("config") .. "/lsp") do
+    local fn = string.gsub(fn, ".lua", "")
+    vim.lsp.enable(fn)
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local bufnr = args.buf
@@ -100,5 +105,3 @@ vim.diagnostic.config({
         },
     },
 })
-
-return {}
