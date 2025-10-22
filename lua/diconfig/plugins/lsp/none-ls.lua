@@ -13,7 +13,8 @@ return {
                 null_ls.builtins.formatting.shfmt.with({
                     filetypes = { "sh", "bash", "zsh" },
                 }),
-                null_ls.builtins.formatting.sqlfluff.with({
+                null_ls.builtins.formatting.sqlfmt,
+                null_ls.builtins.diagnostics.sqlfluff.with({
                     extra_args = { "--dialect", "duckdb" },
                 }),
             },
