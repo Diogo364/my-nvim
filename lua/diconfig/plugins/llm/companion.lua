@@ -5,9 +5,10 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
-        "MeanderingProgrammer/render-markdown.nvim",
+        -- "MeanderingProgrammer/render-markdown.nvim",
         "echasnovski/mini.diff",
     },
+    enabled=false,
     opts = {
         strategies = {
             chat = {
