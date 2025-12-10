@@ -105,3 +105,11 @@ vim.diagnostic.config({
         },
     },
 })
+
+vim.api.nvim_create_user_command("DiagnosticReset", function()
+    vim.diagnostic.reset(0)
+end, { desc = "Reset Diagnostic" })
+
+vim.api.nvim_create_user_command("DiagnosticToggle", function()
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, { desc = "Toggle Diagnostics" })
