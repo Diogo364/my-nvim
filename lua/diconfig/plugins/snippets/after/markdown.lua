@@ -28,7 +28,18 @@ local conds_expand = require("luasnip.extras.conditions.expand")
 
 local ft = "markdown"
 
+local get_time = function()
+    return os.date("%H:%M:%S")
+end
+
+local get_date = function()
+    return os.date("%Y-%m-%d")
+end
+
 require("luasnip.session.snippet_collection").clear_snippets(ft)
 ls.add_snippets(ft, {
     s("code", fmt("```{}\n{}\n```", { i(1, "test"), i(2, "code") })),
+    s("date", f(get_date)),
+    s("time", f(get_time)),
+    s("timestamp", fmt("{} {}", { f(get_date), f(get_time) })),
 })
