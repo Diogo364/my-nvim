@@ -1,5 +1,6 @@
 return {
     "luk400/vim-jukit",
+    enabled = false,
     lazy = true,
     ft = { "python" },
     init = function()

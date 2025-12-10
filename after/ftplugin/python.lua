@@ -1,191 +1,126 @@
-vim.keymap.set(
-    "n",
-    "<leader><cr>",
-    ":call jukit#send#section(0)<cr>",
-    { buffer = true, desc = "Send code within current cell to output" }
-)
+local divider = "# %%"
+local divider_pattern = "# %%%%"
+local divider_hl_group_name = "PythonDivider"
+local namespace_id = vim.api.nvim_create_namespace(divider_hl_group_name)
+local group_python_divider =
+    vim.api.nvim_create_augroup("group_python_divider", { clear = true })
+
+vim.api.nvim_set_hl(0, divider_hl_group_name, {
+    bg = "Gray",
+    fg = "Black",
+    ctermbg = "Gray",
+    ctermfg = "Gray",
+})
+
+local highlight_divider_line = function()
+    -- Delete all previous extmarks
+    for _, extmark in
+        pairs(vim.api.nvim_buf_get_extmarks(0, namespace_id, 0, -1, {}))
+    do
+        vim.api.nvim_buf_del_extmark(0, namespace_id, extmark[1])
+    end
+
+    -- Define new extmarks
+    for i, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
+        local match = string.match(line, divider_pattern)
+        if match ~= nil then
+            vim.api.nvim_buf_set_extmark(
+                0,
+                namespace_id,
+                i - 1,
+                0,
+                { line_hl_group = divider_hl_group_name }
+            )
+        end
+    end
+end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "TextChangedI", "TextChanged" }, {
+    group = group_python_divider,
+    pattern = "*.py",
+    callback = highlight_divider_line,
+})
+
+local write_divider = function(line, is_markdown)
+    is_markdown = is_markdown or false
+    local curr_divider = divider
+    if is_markdown then
+        curr_divider = curr_divider .. " [markdown]"
+    end
+    local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+    local target_line = cursor_line + line
+    vim.api.nvim_buf_set_lines(
+        0,
+        target_line,
+        target_line,
+        false,
+        { curr_divider }
+    )
+end
+
+local find_next_divider = function()
+    vim.cmd(string.format("/%s", divider))
+end
+
+local find_prev_divider = function()
+    vim.cmd(string.format("?%s", divider))
+end
+
+local enter_next_cell = function()
+    find_next_divider()
+    vim.cmd("norm j")
+end
+
+local enter_prev_cell = function()
+    find_prev_divider()
+    find_prev_divider()
+    vim.cmd("norm j")
+end
+
+vim.keymap.set("n", "<leader>cs", function()
+    write_divider(-1)
+end, { buffer = true, desc = "Split current cell" })
+
+vim.keymap.set("n", "<leader>ct", function()
+    find_next_divider()
+    write_divider(-1, true)
+    vim.cmd("norm O")
+    vim.api.nvim_put({"# "}, "", false, true)
+    vim.cmd("startinsert!")
+end, { buffer = true, desc = "Split current cell" })
+
+vim.keymap.set("n", "<leader>cT", function()
+    find_prev_divider()
+    write_divider(-1, true)
+    vim.cmd("norm O")
+    vim.api.nvim_put({"# "}, "", false, true)
+    vim.cmd("startinsert!")
+end, { buffer = true, desc = "Split current cell" })
 
 vim.keymap.set(
     "n",
-    "<leader>os",
-    ":call jukit#splits#output()<cr>",
-    { buffer = true, desc = "Open output window and execute shell command" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>ts",
-    ":call jukit#splits#term()<cr>",
-    { buffer = true, desc = "Open output window without executing command" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>hs",
-    ":call jukit#splits#history()<cr>",
-    { buffer = true, desc = "Open output-history window" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>ohs",
-    ":call jukit#splits#output_and_history()<cr>",
-    { buffer = true, desc = "Open output terminal and output-history window" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>hd",
-    ":call jukit#splits#close_history()<cr>",
-    { buffer = true, desc = "Close output-history window" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>od",
-    ":call jukit#splits#close_output_split()<cr>",
-    { buffer = true, desc = "Close output window" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>ohd",
-    ":call jukit#splits#close_output_and_history(1)<cr>",
-    {
-        buffer = true,
-        desc = "Close both output and history windows with confirmation",
-    }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>ah",
-    ":call jukit#splits#toggle_auto_hist()<cr>",
-    { buffer = true, desc = "Toggle auto output display on CursorHold" }
-)
-
-vim.keymap.set(
-    "v",
-    "<cr>",
-    ":<C-U>call jukit#send#selection()<cr>",
-    { buffer = true, desc = "Send visually selected code to output" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>cc",
-    ":call jukit#send#until_current_section()<cr>",
-    { buffer = true, desc = "Execute all cells until the current cell" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>all",
-    ":call jukit#send#all()<cr>",
-    { buffer = true, desc = "Execute all cells" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>co",
-    ":call jukit#cells#create_below(0)<cr>",
-    { buffer = true, desc = "Create new code cell below" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>cO",
-    ":call jukit#cells#create_above(0)<cr>",
-    { buffer = true, desc = "Create new code cell above" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>ct",
-    ":call jukit#cells#create_below(1)<cr>",
-    { buffer = true, desc = "Create new markdown cell below" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>cT",
-    ":call jukit#cells#create_above(1)<cr>",
-    { buffer = true, desc = "Create new markdown cell above" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>cd",
-    ":call jukit#cells#delete()<cr>",
-    { buffer = true, desc = "Delete current cell" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>cs",
-    ":call jukit#cells#split()<cr>",
+    "<leader>J",
+    enter_next_cell,
     { buffer = true, desc = "Split current cell" }
 )
 
 vim.keymap.set(
     "n",
-    "<leader>cM",
-    ":call jukit#cells#merge_above()<cr>",
-    { buffer = true, desc = "Merge current cell with the cell above" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>cm",
-    ":call jukit#cells#merge_below()<cr>",
-    { buffer = true, desc = "Merge current cell with the cell below" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>ck",
-    ":call jukit#cells#move_up()<cr>",
-    { buffer = true, desc = "Move current cell up" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>cj",
-    ":call jukit#cells#move_down()<cr>",
-    { buffer = true, desc = "Move current cell down" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>J",
-    ":call jukit#cells#jump_to_next_cell()<cr>",
-    { buffer = true, desc = "Jump to the next cell below" }
-)
-
-vim.keymap.set(
-    "n",
     "<leader>K",
-    ":call jukit#cells#jump_to_previous_cell()<cr>",
-    { buffer = true, desc = "Jump to the previous cell above" }
+    enter_prev_cell,
+    { buffer = true, desc = "Split current cell" }
 )
 
-vim.keymap.set(
-    "n",
-    "<leader>ddo",
-    ":call jukit#cells#delete_outputs(0)<cr>",
-    { buffer = true, desc = "Delete saved output of the current cell" }
-)
+vim.keymap.set("n", "<leader>cO", function()
+    write_divider(-1)
+    find_prev_divider()
+    vim.cmd("norm O")
+    vim.cmd("startinsert")
+end, { buffer = true, desc = "Split current cell" })
 
-vim.keymap.set(
-    "n",
-    "<leader>dda",
-    ":call jukit#cells#delete_outputs(1)<cr>",
-    { buffer = true, desc = "Delete saved outputs of all cells" }
-)
-
-vim.api.nvim_buf_create_user_command(
-    0,
-    "JukitConvertToNotebook",
-    ":call jukit#convert#notebook_convert('jupyter-notebook')<CR>",
-    { desc = "Convert Python file into Jupyter Notebook Format" }
-)
+vim.keymap.set("n", "<leader>co", function()
+    write_divider(0)
+    find_next_divider()
+    vim.cmd("norm o")
+    vim.cmd("startinsert")
+end, { buffer = true, desc = "Split current cell" })
