@@ -8,7 +8,7 @@ return {
     opts = {
         completions = { lsp = { enabled = true } },
         heading = {
-            atx = false,
+            icons = { "# ", "## ", "### ", "#### ", "##### ", "###### " },
         },
     },
 }

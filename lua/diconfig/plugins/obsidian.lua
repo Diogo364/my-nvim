@@ -17,9 +17,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
             if vim.startswith(cwd, WORK_VAULT) then
                 vim.cmd("Obsidian workspace work")
             end
-        else
-            require("render-markdown")
+            -- else
         end
+        require("render-markdown")
     end,
 })
 
@@ -79,7 +79,7 @@ return {
                         suffix = suffix .. string.char(math.random(65, 90))
                     end
                 end
-                return tostring(os.time()) .. "-" .. suffix
+                return tostring(os.date("%Y-%m-%dT%H:%M:%S")) .. "-" .. suffix
             end,
             templates = {
                 folder = "templates",
@@ -90,6 +90,7 @@ return {
                 enabled = false,
                 separator = false,
             },
+            ui = { enable = false },
         })
 
         vim.keymap.set("n", "<leader>on", "<cmd>Obsidian new<cr>", {
