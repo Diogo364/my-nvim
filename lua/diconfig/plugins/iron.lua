@@ -17,7 +17,7 @@ return {
                         command = { "lua" },
                     },
                     python = {
-                        command = { "ipython3" },
+                        command = { "ipython3", "-i", "--no-autoindent" },
                         format = common.bracketed_paste_python,
                         block_dividers = { "# %%", "#%%" },
                         env = { PYTHON_BASIC_REPL = "1" },
